@@ -9,11 +9,12 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.replicaCount }}
-  revisionHistoryLimit: 3
+  revisionHistoryLimit: "string"
   selector:
     matchLabels:
       app: {{ template "helm-guestbook.name" . }}
-      release: {{ .Release.Name }}
+      release: 
+        makesnosense: true
   template:
     metadata:
       labels:
@@ -27,7 +28,7 @@ spec:
           ports:
             - name: http
               containerPort: {{ .Values.containerPort }}
-              protocol: TCP
+              protocol: doesnotexist
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- with .Values.nodeSelector }}
